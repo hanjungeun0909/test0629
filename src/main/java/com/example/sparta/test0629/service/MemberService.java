@@ -4,6 +4,7 @@ import com.example.sparta.test0629.dto.MemberRequestDto;
 import com.example.sparta.test0629.dto.MemberResponseDto;
 import com.example.sparta.test0629.entity.Member;
 import com.example.sparta.test0629.repository.MemberRepository;
+import com.mysql.cj.protocol.x.Notice;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -33,7 +34,8 @@ public class MemberService {
     @Transactional
     public MemberResponseDto saveMember(MemberRequestDto memberRequestDto) {
         Member member = new Member(memberRequestDto);
-        memberRepository.save(member);
-        return new MemberResponseDto(member);
+        Member saveNotice = memberRepository.save(member);
+        MemberResponseDto memberResponseDto = new MemberResponseDto(saveNotice);
+        return memberResponseDto;
     }
 }
